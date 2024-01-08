@@ -2,11 +2,13 @@
 using Assets.BicycleComponents.BicycleFrames;
 using BuilderPattern;
 using DecoratorPattern;
+using FacadePattern;
 using FactoryMethodPattern;
 using NoPattern;
 using ObjectPoolPattern;
 using SimpleFactoryPattern;
 using SingletonPattern;
+using System.Numerics;
 
 
 
@@ -21,7 +23,8 @@ Console.WriteLine("Hello, World!");
 //ObjectPoolPatternTest();
 //SingletonPatternTest();
 
-DecoratorPatternTest();
+//DecoratorPatternTest();
+FacadePatternTest();
 
 #region NoPattern
 void NoPatternTest()
@@ -194,10 +197,54 @@ void DecoratorPatternTest()
     var notifiedAndPrintedBicycle = new NotifiedBicycle(
         new DocumentedBicycle(regularRoadBicycle, manualPrinterForBicycle), manufacturingInventoryNotifier);
     notifiedAndPrintedBicycle.Build();
+
+    /*You can also use a decorator to extend classes that are awkward or impossible to extend through 
+    regular inheritance. Consider a class that is sealed, meaning it can’t be extended through inheritance. 
+    You can still extend it using a decorator*/
+
 }
 
-/*You can also use a decorator to extend classes that are awkward or impossible to extend through 
-regular inheritance. Consider a class that is sealed, meaning it can’t be extended through inheritance. 
-You can still extend it using a decorator*/
+void FacadePatternTest()
+{
+    const int numberOfAssemblyStations = 20;
+    const float consistentY = 52.0f;
+    const float consistentZ = 128.0f;
+    const float consistentW = 90.0f;
+    var assemblyStations = new Quaternion[numberOfAssemblyStations];
+
+    /*Since the assembly line is literally a straight line, it is easy to evenly space the stations 25 feet apart 
+    along the line’s X axis. A simple loop can then pre-populate the array of quaternions that represent 
+    the workstations on the assembly line:*/
+    for (int i = 0; i< numberOfAssemblyStations; i++)
+    {
+        var xPosition = i * 25.0f;
+        assemblyStations[i] = new Quaternion(xPosition, consistentY, consistentZ, consistentW);
+    }
+
+    Console.WriteLine("RobotArm 0: Robotic arm control system activated!");
+    var robotArm0 = new RobotArmFacade(new WelderAttachmentApi(), new BufferAttachmentApi(), new GrabberAttachementApi());
+
+    Console.WriteLine("Initializing welder function in arm 0");
+    robotArm0.CurrentAttachment = Assets.Enumerations.RobotArmAttachmentTypes.Welder;//set the attachment to a welder
+    robotArm0.MoveTo(assemblyStations[0]);
+    robotArm0.Actuate();
+
+    Console.WriteLine("Initializing buffer function in arm 0");
+    robotArm0.CurrentAttachment = Assets.Enumerations.RobotArmAttachmentTypes.Buffer;
+    robotArm0.MoveTo(assemblyStations[3]);
+    robotArm0.Actuate();
+
+    Console.WriteLine("Initializing grabber function in arm 0");
+    robotArm0.CurrentAttachment = Assets.Enumerations.RobotArmAttachmentTypes.Grabber;
+    robotArm0.MoveTo(assemblyStations[7]);
+    robotArm0.Actuate();
+
+    // we can have list of robot arms facade in a loop to keep on operationg.
+
+    /*we needed to deal with three different APIs from three different vendors to work with three 
+    different pieces of hardware. By using the Façade pattern, we were able to deal with one common 
+    interface for all three APIs, which isolates the bulk of our code from changes made in the API. When 
+    the API changes, we may need to change the façade, but we won’t need to change anything else*/
+}
 
 #endregion Structural Patterns

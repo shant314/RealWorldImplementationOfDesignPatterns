@@ -68,5 +68,12 @@
             TIG,
             Stick
         }
+
+        public enum RobotArmAttachmentTypes
+        {
+            Welder,
+            Buffer,
+            Grabber
+        }
     }
 }

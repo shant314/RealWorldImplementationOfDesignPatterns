@@ -2,7 +2,7 @@
 
 namespace Assets
 {
-    public class MountainBicycle : Bicycle
+    public class MountainBicycle : AbstractBicycle
     {
         public MountainBicycle()
         {

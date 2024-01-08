@@ -1,6 +1,7 @@
 ﻿using AbstractMethodPattern;
 using Assets.BicycleComponents.BicycleFrames;
 using BuilderPattern;
+using DecoratorPattern;
 using FactoryMethodPattern;
 using NoPattern;
 using ObjectPoolPattern;
@@ -12,13 +13,15 @@ using SingletonPattern;
 Console.WriteLine("Hello, World!");
 
 //NoPatternTest();
+
 //SimpleFactoryPatternTest();
 //FactoryMethodPatternTest();
 //AbstactFactoryPatternTest();
 //BuilderPatternTest();
 //ObjectPoolPatternTest();
-SingletonPatternTest();
+//SingletonPatternTest();
 
+DecoratorPatternTest();
 
 #region NoPattern
 void NoPatternTest()
@@ -37,7 +40,7 @@ void NoPatternTest()
 
 #endregion NoPattern
 
-#region SimpleFactoryPattern
+#region Creational Patterns
 
 void SimpleFactoryPatternTest()
 {
@@ -55,9 +58,6 @@ void SimpleFactoryPatternTest()
     }
 }
 
-#endregion SimpleFactoryPattern
-
-#region FactoryMethodPattern
 void FactoryMethodPatternTest()
 {
     var dallasBicycleFactory = new DallasCreator();
@@ -68,9 +68,6 @@ void FactoryMethodPatternTest()
     var alpineBicycle = alpineBicycleFactory.CreateProduct("PALO DURO CANYON RANGER");
     alpineBicycle.Build();
 }
-#endregion FactoryMethodPattern
-
-#region AbstactFactoryPattern
 
 void AbstactFactoryPatternTest()
 {
@@ -93,9 +90,6 @@ void AbstactFactoryPatternTest()
 
 }
 
-#endregion AbstarctFactoryPattern
-
-#region BuilderPattern
 void BuilderPatternTest()
 {
     var roadBicycleBuilder = new RoadBicycleBuilder();
@@ -109,9 +103,6 @@ void BuilderPatternTest()
     Console.WriteLine(mountainBicycle.ToString());
 }
 
-#endregion BuilderPattern
-
-#region ObjectPoolPattern
 void ObjectPoolPatternTest()
 {
     Console.WriteLine("Here's a program that controls some welding robots from a pool of 10.");
@@ -149,9 +140,7 @@ void ObjectPoolPatternTest()
         }
     }
 }
-#endregion ObjectPoolPattern
 
-#region SingletonPattern
 void SingletonPatternTest()
 {
 
@@ -177,4 +166,38 @@ void SingletonPatternTest()
     Console.WriteLine("There are " + armPoolSingleton2.ArmsAvailableCount + " arms available");
 }
 
-#endregion SingletonPattern
+
+#endregion Creational Patterns
+
+#region Structural Patterns
+
+void DecoratorPatternTest()
+{
+    // no decorator
+    var regularRoadBicycle = new Assets.RoadBicycle();
+    regularRoadBicycle.Build();
+
+    Console.WriteLine("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
+
+    var manualPrinterForBicycle = new ManualPrinter();
+    var documentedBicycle = new DocumentedBicycle(regularRoadBicycle, manualPrinterForBicycle);
+    documentedBicycle.Build();
+
+    Console.WriteLine("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
+
+    var manufacturingInventoryNotifier = new MaterialsInventoryNotifier();
+    var notifiedBicycle = new NotifiedBicycle(regularRoadBicycle, manufacturingInventoryNotifier);
+    notifiedBicycle.Build();
+
+    Console.WriteLine("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
+
+    var notifiedAndPrintedBicycle = new NotifiedBicycle(
+        new DocumentedBicycle(regularRoadBicycle, manualPrinterForBicycle), manufacturingInventoryNotifier);
+    notifiedAndPrintedBicycle.Build();
+}
+
+/*You can also use a decorator to extend classes that are awkward or impossible to extend through 
+regular inheritance. Consider a class that is sealed, meaning it can’t be extended through inheritance. 
+You can still extend it using a decorator*/
+
+#endregion Structural Patterns

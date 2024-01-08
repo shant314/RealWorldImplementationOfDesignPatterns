@@ -10,7 +10,7 @@ namespace Assets.BicycleComponents.BicycleFrames
         public BicycleGeometryTypes Geometry { get; set; }
         public BicyclePaintColorTypes PaintColor { get; set; }
         public BicycleSuspensionTypes SuspensionType { get; set; }
-        public ManufacturingStatusTypes ManufacturingStatus { get; set; }
+        public BicycleManufacturingStatusTypes ManufacturingStatus { get; set; }
             
         public void Build();
     }

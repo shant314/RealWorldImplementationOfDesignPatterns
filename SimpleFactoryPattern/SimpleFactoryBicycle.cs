@@ -4,9 +4,9 @@ namespace SimpleFactoryPattern
 {
     public class SimpleFactoryBicycle
     {
-        public Bicycle CreateBicycle(string bicycleType)
+        public AbstractBicycle CreateBicycle(string bicycleType)
         {
-            Bicycle bikeToBuild;
+            AbstractBicycle bikeToBuild;
             switch (bicycleType)
             {
                 case "mountainbike":

@@ -16,7 +16,7 @@
             Blue
         }
 
-        public enum ManufacturingStatusTypes
+        public enum BicycleManufacturingStatusTypes
         {
             Specified,
             FrameManufactured,

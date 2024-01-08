@@ -2,7 +2,7 @@
 
 namespace Assets
 {
-    public abstract class Bicycle : IBicycle
+    public abstract class AbstractBicycle : IBicycle
     {
         public string ModelName { get; set; }
         public int ProductionYear { get; set; }
@@ -10,36 +10,36 @@ namespace Assets
         public BicycleGeometryTypes Geometry { get; set; }
         public BicyclePaintColorTypes PaintColor { get; set; }
         public BicycleSuspensionTypes SuspensionType { get; set; }
-        public ManufacturingStatusTypes ManufacturingStatus { get; set; }
+        public BicycleManufacturingStatusTypes ManufacturingStatus { get; set; }
 
-        protected Bicycle()
+        protected AbstractBicycle()
         {
             ModelName = string.Empty;
             SerialNumber = Guid.NewGuid().ToString();
             ProductionYear = DateTime.Now.Year;
-            ManufacturingStatus = ManufacturingStatusTypes.Specified;
+            ManufacturingStatus = BicycleManufacturingStatusTypes.Specified;
         }
 
         public void Build()
         {
             Console.WriteLine($"Manufacturing a {Geometry.ToString()} frame...");
-            ManufacturingStatus = ManufacturingStatusTypes.FrameManufactured;
+            ManufacturingStatus = BicycleManufacturingStatusTypes.FrameManufactured;
             PrintBuildStatus();
 
             Console.WriteLine($"Painting the frame {PaintColor.ToString()}");
-            ManufacturingStatus = ManufacturingStatusTypes.Painted;
+            ManufacturingStatus = BicycleManufacturingStatusTypes.Painted;
             PrintBuildStatus();
 
             if (SuspensionType != BicycleSuspensionTypes.Hardtail)
             {
                 Console.WriteLine($"Mounting the {SuspensionType.ToString()} suspension.");
-                ManufacturingStatus = ManufacturingStatusTypes.SuspensionMounted;
+                ManufacturingStatus = BicycleManufacturingStatusTypes.SuspensionMounted;
                 PrintBuildStatus();
             }
 
             Console.WriteLine("{0} {1} Bicycle serial number {2} manufacturing complete!",
                 ProductionYear, ModelName, SerialNumber);
-            ManufacturingStatus = ManufacturingStatusTypes.Complete;
+            ManufacturingStatus = BicycleManufacturingStatusTypes.Complete;
             PrintBuildStatus();
         }
 

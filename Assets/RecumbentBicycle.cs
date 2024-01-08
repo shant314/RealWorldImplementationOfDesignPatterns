@@ -1,7 +1,7 @@
 ﻿
 namespace Assets
 {
-    public class RecumbentBicycle : Bicycle
+    public class RecumbentBicycle : AbstractBicycle
     {
         public RecumbentBicycle()
         {

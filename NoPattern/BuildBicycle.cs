@@ -14,7 +14,7 @@ namespace NoPattern
 
         public void GetBicycle()
         {
-            Bicycle bicycle;
+            AbstractBicycle bicycle;
             switch (_bicycleType)
             {
                 case "mountainbike":

@@ -1,6 +1,7 @@
 ﻿using AbstractMethodPattern;
 using Assets.BicycleComponents.BicycleFrames;
 using BuilderPattern;
+using CompositePattern;
 using DecoratorPattern;
 using FacadePattern;
 using FactoryMethodPattern;
@@ -11,20 +12,54 @@ using SingletonPattern;
 using System.Numerics;
 
 
+Console.WriteLine("This project will display sample outputs for design patterns, just type a design patern you want to test for example Simple factory.");
 
-Console.WriteLine("Hello, World!");
+switch (Console.ReadLine()!.ToUpper())
+{
+    case "SIMPLEFACTORY":
+    case "SIMPLE FACTORY":
+        SimpleFactoryPatternTest();
+        break;
+    case "FACTORYMETHOD":
+    case "FACTORY METHOD":
+        FactoryMethodPatternTest();
+        break;
+    case "ABSTRACTFACTORY":
+    case "ABSTRACT FACTORY":
+        AbstractFactoryPatternTest();
+        break;
+    case "BUILDERPATTERN":
+    case "BUILDER PATTERN":
+        BuilderPatternTest();
+        break;
+    case "ObjectPool":
+    case "Object Pool":
+        ObjectPoolPatternTest();
+        break;
+    case "SINGLETONPATTERN":
+    case "SINGLETON PATTERN":
+        SingletonPatternTest();
+        break;
+    case "DECORATORPATTERN":
+    case "DECORATOR PATTERN":
+        DecoratorPatternTest();
+        break;
+    case "FACADEPATTERN":
+    case "FACADE PATTERN":
+        FacadePatternTest();
+        break;
+    case "COMPOSITEPATTERN":
+    case "COMPOSITE PATTERN":
+        CompositePatternTest();
+        break;
+    case null:
+    default:
+        Console.WriteLine("Running no pattern.");
+        NoPatternTest();
+        break;
 
-//NoPatternTest();
 
-//SimpleFactoryPatternTest();
-//FactoryMethodPatternTest();
-//AbstactFactoryPatternTest();
-//BuilderPatternTest();
-//ObjectPoolPatternTest();
-//SingletonPatternTest();
-
-//DecoratorPatternTest();
-FacadePatternTest();
+}
 
 #region NoPattern
 void NoPatternTest()
@@ -72,7 +107,7 @@ void FactoryMethodPatternTest()
     alpineBicycle.Build();
 }
 
-void AbstactFactoryPatternTest()
+void AbstractFactoryPatternTest()
 {
     /*The key here is the use of the interface as the factory type. 
     Coding this way makes it possible to change the factory without relying on concrete 
@@ -215,7 +250,7 @@ void FacadePatternTest()
     /*Since the assembly line is literally a straight line, it is easy to evenly space the stations 25 feet apart 
     along the line’s X axis. A simple loop can then pre-populate the array of quaternions that represent 
     the workstations on the assembly line:*/
-    for (int i = 0; i< numberOfAssemblyStations; i++)
+    for (int i = 0; i < numberOfAssemblyStations; i++)
     {
         var xPosition = i * 25.0f;
         assemblyStations[i] = new Quaternion(xPosition, consistentY, consistentZ, consistentW);
@@ -245,6 +280,58 @@ void FacadePatternTest()
     different pieces of hardware. By using the Façade pattern, we were able to deal with one common 
     interface for all three APIs, which isolates the bulk of our code from changes made in the API. When 
     the API changes, we may need to change the façade, but we won’t need to change anything else*/
+}
+
+void CompositePatternTest()
+{
+    Console.WriteLine("Composite Example");
+
+    // for this exercise, a crankset is comprised of the bottom bracket, two chain rings, the crank arms and pedals
+    // I think it's easiest to go bottom up starting with the leaves.
+
+    var leftPedal = new Pedal(234.14f, 11.32f);
+    var rightPedal = new Pedal(234.14f, 11.32f);
+
+    // the pedals connect to the crank arm
+    var crankArm = new CrankArm(432.93f, 34.32f);
+    crankArm.SubBicycleComponents.Add(leftPedal);
+    crankArm.SubBicycleComponents.Add(rightPedal);
+
+    // the crank arm connects to the large chain ring
+    // the large chain ring has a small chain ring attached
+    var largeChainRing = new LargeChainRing(57.0983f, 13.53f);
+    var smallChainRing = new SmallChainRing(52.57f, 11.33f);
+
+    largeChainRing.SubBicycleComponents.Add(smallChainRing);
+    largeChainRing.SubBicycleComponents.Add(crankArm);
+
+    // the large chain ring connects to the shaft
+    var shaft = new Shaft(82.03f, 19.55f);
+    shaft.SubBicycleComponents.Add(largeChainRing);
+
+    // finally, the shaft threads through the bottom bracket to form a system called the crank set.
+    var bottomBracket = new BottomBracket(284.834f, 11.51f);
+    bottomBracket.SubBicycleComponents.Add(shaft);
+
+    var crankSet = new CrankSet(0f, 0f);  // I used 0's because the crank set is the sum of its parts
+    crankSet.SubBicycleComponents.Add(bottomBracket);
+
+    Console.WriteLine(" ------------------------ Weights --------------------------");
+    crankSet.DisplayWeight();
+
+    Console.WriteLine(" ------------------------ Cost --------------------------");
+    crankSet.DisplayCost();
+    /*The composite pattern allows you to work with complex tree structures elegantly by allowing you to 
+    make full use of recursion and polymorphism. Just be careful that you work with classes that have 
+    a very common interface. You might be introducing code smell if you must shoe-horn a bunch of 
+    classes that don’t really fit together. This pattern pairs nicely with the Builder pattern already in use 
+    because the builder can be made to assemble the tree structure.*/
+
+    /*The Composite pattern is used whenever you need to process a hierarchical structure as a tree. The 
+    main requirement for the pattern to be effective is that every node in the tree must conform to a 
+    common interface. If that can be managed, you can use this pattern to process the tree in any manner 
+    you might need. You can add new class types to your tree, so long as they conform to the common 
+    interface. Using this pattern, you can create novel processing capabilities while honoring the openclosed principle. Recursion and polymorphism can be exploited to expedite your processing.*/
 }
 
 #endregion Structural Patterns

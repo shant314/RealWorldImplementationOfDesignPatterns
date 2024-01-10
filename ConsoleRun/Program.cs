@@ -1,5 +1,7 @@
 ﻿using AbstractMethodPattern;
 using Assets.BicycleComponents.BicycleFrames;
+using Assets.PaintableBicycle;
+using Assets.PaintableBicycle.PaintJobs;
 using BuilderPattern;
 using CompositePattern;
 using DecoratorPattern;
@@ -51,6 +53,10 @@ switch (Console.ReadLine()!.ToUpper())
     case "COMPOSITEPATTERN":
     case "COMPOSITE PATTERN":
         CompositePatternTest();
+        break;
+    case "BRIDGEPATTERN":
+    case "BRIDGE PATTERN":
+        BridgePatternTest();
         break;
     case null:
     default:
@@ -334,4 +340,41 @@ void CompositePatternTest()
     interface. Using this pattern, you can create novel processing capabilities while honoring the openclosed principle. Recursion and polymorphism can be exploited to expedite your processing.*/
 }
 
+void BridgePatternTest()
+{
+    // Our original mountain bike was black.  We can still do that.
+    var blackPaintJob = new BlackPaintJob();
+    var standardBlackMountainBicycle = new PaintableMountainBicycle(blackPaintJob);
+    standardBlackMountainBicycle.Build();
+
+    // For our kickstarter backers, we have the exclusive Mountain Bike with the Amarillo Peacock paint job!
+    var amarilloPeacockPaintjob = new AmarilloPeacockPaintJob();
+    var customPaintedMountainBike = new PaintableMountainBicycle(amarilloPeacockPaintjob);
+    customPaintedMountainBike.Build();
+}
+
+
 #endregion Structural Patterns
+
+
+
+
+/*
+    The Decorator pattern allows us to extend existing classes by decorating or wrapping new functionality 
+around the original class. The decorators can stack as a Russian Matryoshka doll does, where one doll 
+is nested inside another.
+ 
+    Façade pattern, which allows us to abstract and insulate our software from 
+complex dependencies. The pattern allows you to put a simple face on a complex API by uniformly 
+exposing operations, even if they aren’t uniform under the covers. You can also use a façade to only 
+expose the elements in a complex API or structure that are important to your implementations. If in 
+the future, the third-party API changes significantly, you can replace the façade without having tightly 
+coupled API calls sprinkled throughout your code.
+ 
+    Composite pattern, any time you need to deal with a tree structured (group sets in a tree-like structure)
+this pattern allow us to user recursion over sub elements.
+
+    Bridge pattern
+The main objective of the Bridge pattern is to allow two complex object structures to be developed and 
+maintained independently of one another. 
+ */

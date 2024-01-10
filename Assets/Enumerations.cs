@@ -75,5 +75,11 @@
             Buffer,
             Grabber
         }
+
+        public enum PaintPrimerTypes { Epoxy, Urethane, Polyester, AcidEtch, Enamel, Lacquer, MoistureCure }
+
+        public enum PaintPrimerColorTypes { Clear, Gray, White, Black }
+
+        public enum PaintTopCoatTypes { TopCoatClear, GlamorClear, TurboClear, HigherSolidClear }
     }
 }

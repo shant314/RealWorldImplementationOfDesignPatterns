@@ -3,6 +3,7 @@ using Assets.BicycleComponents.BicycleFrames;
 using Assets.PaintableBicycle;
 using Assets.PaintableBicycle.PaintJobs;
 using BuilderPattern;
+using CommandPattern;
 using CompositePattern;
 using DecoratorPattern;
 using FacadePattern;
@@ -57,6 +58,10 @@ switch (Console.ReadLine()!.ToUpper())
     case "BRIDGEPATTERN":
     case "BRIDGE PATTERN":
         BridgePatternTest();
+        break;
+    case "COMMANDPATTERN":
+    case "COMMAND PATTERN":
+        CommandPatternTest();
         break;
     case null:
     default:
@@ -356,6 +361,22 @@ void BridgePatternTest()
 
 #endregion Structural Patterns
 
+#region Behavioral Patterns
+
+void CommandPatternTest()
+{
+    var blackPaintJob = new BlackPaintJob();
+    var standardMountainBicycle = new PaintableMountainBicycle(blackPaintJob);
+    // prepare the robot arm with different attachment api.
+    var robotArmFacade = new RobotArmFacade(new WelderAttachmentApi(), new BufferAttachmentApi(), new GrabberAttachementApi());
+    var command = new BuildFrameCommand(new AssemblyLineCommandReceiver(robotArmFacade), standardMountainBicycle);
+    //command.Execute(); not good design to do here.
+    
+    var commandSender = new CommandSender(command);
+    commandSender.ExecuteCommand();
+}
+
+#endregion Behavioral Patterns
 
 
 
@@ -377,4 +398,8 @@ this pattern allow us to user recursion over sub elements.
     Bridge pattern
 The main objective of the Bridge pattern is to allow two complex object structures to be developed and 
 maintained independently of one another. 
+
+    Command pattern
+You can use the Command pattern any time you have logic to perform an action and you want to 
+isolate it from tightly coupling to anything that may want to call that logic.
  */

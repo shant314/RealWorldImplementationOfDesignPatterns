@@ -11,6 +11,7 @@
     <ProjectReference Include="..\AbstractMethodPattern\AbstractMethodPattern.csproj" />
     <ProjectReference Include="..\BridgePattern\BridgePattern.csproj" />
     <ProjectReference Include="..\BuilderPattern\BuilderPattern.csproj" />
+    <ProjectReference Include="..\CommandPattern\CommandPattern.csproj" />
     <ProjectReference Include="..\CompositePattern\CompositePattern.csproj" />
     <ProjectReference Include="..\DecoratorPattern\DecoratorPattern.csproj" />
     <ProjectReference Include="..\FacadePattern\FacadePattern.csproj" />

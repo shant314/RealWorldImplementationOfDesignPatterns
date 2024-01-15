@@ -37,7 +37,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Behavioral Patterns", "Beha
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CommandPattern", "CommandPattern\CommandPattern.csproj", "{BEBD0F3B-B7F7-4851-851E-FB7948762A64}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IteratorPattern", "IteratorPattern\IteratorPattern.csproj", "{4CEDF688-1339-4280-B5C3-ECF2AF7D6EA0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IteratorPattern", "IteratorPattern\IteratorPattern.csproj", "{4CEDF688-1339-4280-B5C3-ECF2AF7D6EA0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ObserverPattern", "ObserverPattern\ObserverPattern.csproj", "{C998207C-784F-46F2-BFDC-41E959991B55}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -105,6 +107,10 @@ Global
 		{4CEDF688-1339-4280-B5C3-ECF2AF7D6EA0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4CEDF688-1339-4280-B5C3-ECF2AF7D6EA0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4CEDF688-1339-4280-B5C3-ECF2AF7D6EA0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C998207C-784F-46F2-BFDC-41E959991B55}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C998207C-784F-46F2-BFDC-41E959991B55}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C998207C-784F-46F2-BFDC-41E959991B55}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C998207C-784F-46F2-BFDC-41E959991B55}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -122,6 +128,7 @@ Global
 		{41223901-934D-41E8-9CEF-56D66677F36E} = {E8B7D791-95E9-4BC3-9832-73A4D6D67832}
 		{BEBD0F3B-B7F7-4851-851E-FB7948762A64} = {32573334-4677-4163-A10B-FF50834C2684}
 		{4CEDF688-1339-4280-B5C3-ECF2AF7D6EA0} = {32573334-4677-4163-A10B-FF50834C2684}
+		{C998207C-784F-46F2-BFDC-41E959991B55} = {32573334-4677-4163-A10B-FF50834C2684}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {3CC9A92E-7A47-4F68-BBB8-6110909A6FF3}

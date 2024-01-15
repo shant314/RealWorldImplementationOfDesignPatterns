@@ -19,6 +19,7 @@
     <ProjectReference Include="..\IteratorPattern\IteratorPattern.csproj" />
     <ProjectReference Include="..\NoPattern\NoPattern.csproj" />
     <ProjectReference Include="..\ObjectPoolPattern\ObjectPoolPattern.csproj" />
+    <ProjectReference Include="..\ObserverPattern\ObserverPattern.csproj" />
     <ProjectReference Include="..\SimpleFactoryPattern\SimpleFactoryPattern.csproj" />
     <ProjectReference Include="..\SingletonPattern\SingletonPattern.csproj" />
   </ItemGroup>

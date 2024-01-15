@@ -1,4 +1,5 @@
 ﻿using AbstractMethodPattern;
+using Assets;
 using Assets.BicycleComponents.BicycleFrames;
 using Assets.PaintableBicycle;
 using Assets.PaintableBicycle.PaintJobs;
@@ -11,6 +12,7 @@ using FactoryMethodPattern;
 using IteratorPattern;
 using NoPattern;
 using ObjectPoolPattern;
+using ObserverPattern;
 using SimpleFactoryPattern;
 using SingletonPattern;
 using System.Net.Mail;
@@ -80,6 +82,11 @@ switch (Console.ReadLine()!.ToUpper())
     case "ITERATOR PATTERN":
     case "ITERATOR":
         IteratorPatternTest();
+        break;
+    case "OBSERVERPATTERN":
+    case "OBSERVER PATTERN":
+    case "OBSERVER":
+        ObserverPatternTest();
         break;
     case null:
     default:
@@ -389,7 +396,7 @@ void CommandPatternTest()
     var robotArmFacade = new RobotArmFacade(new WelderAttachmentApi(), new BufferAttachmentApi(), new GrabberAttachementApi());
     var command = new BuildFrameCommand(new AssemblyLineCommandReceiver(robotArmFacade), standardMountainBicycle);
     //command.Execute(); not good design to do here.
-    
+
     var commandSender = new CommandSender(command);
     commandSender.ExecuteCommand();
 }
@@ -440,6 +447,38 @@ void IteratorPatternTest()
     {
         Console.WriteLine(order.Bicycle.PaintJob.Name);
     }
+}
+
+void ObserverPatternTest()
+{
+    // declare a subject that can be observed.
+    var logisticsSubject = new LogisticsSubject();
+
+    // declare an observer.
+    var exFedObserver = new ExFedObserver();
+    //add observer.
+    logisticsSubject.Attach(exFedObserver);
+
+    // Now let's make some bikes.  Each time we have 10, we'll send a notification.
+    var pickupOrder = new List<AbstractBicycle>();
+
+    // start form one. 
+    for (var i = 1; i < 100; i++)
+    {
+        var mountainBicycle = new MountainBicycle();
+
+        Thread.Sleep(500);
+        Console.WriteLine(mountainBicycle.ToString());
+
+        pickupOrder.Add(mountainBicycle);
+
+        if (i % 10 == 0)
+            logisticsSubject.NotifyPickupAvailable();
+    }
+
+    pickupOrder.Clear();
+
+    /*you can create other observer that will ship custom color bicycles, and instead of counting bicycles count color spacific ones.*/
 }
 
 #endregion Behavioral Patterns

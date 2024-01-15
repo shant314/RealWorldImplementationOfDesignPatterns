@@ -8,60 +8,78 @@ using CompositePattern;
 using DecoratorPattern;
 using FacadePattern;
 using FactoryMethodPattern;
+using IteratorPattern;
 using NoPattern;
 using ObjectPoolPattern;
 using SimpleFactoryPattern;
 using SingletonPattern;
+using System.Net.Mail;
 using System.Numerics;
 
 
-Console.WriteLine("This project will display sample outputs for design patterns, just type a design patern you want to test for example Simple factory.");
+Console.WriteLine("This project will display sample outputs for design patterns, just type a design pattern you want to test for example Simple factory.");
 
 switch (Console.ReadLine()!.ToUpper())
 {
     case "SIMPLEFACTORY":
     case "SIMPLE FACTORY":
+    case "SIMPLE":
         SimpleFactoryPatternTest();
         break;
     case "FACTORYMETHOD":
     case "FACTORY METHOD":
+    case "FACTORY":
         FactoryMethodPatternTest();
         break;
     case "ABSTRACTFACTORY":
     case "ABSTRACT FACTORY":
+    case "ABSTRACT":
         AbstractFactoryPatternTest();
         break;
     case "BUILDERPATTERN":
     case "BUILDER PATTERN":
+    case "BUILDER":
         BuilderPatternTest();
         break;
     case "ObjectPool":
     case "Object Pool":
+    case "Object":
         ObjectPoolPatternTest();
         break;
     case "SINGLETONPATTERN":
     case "SINGLETON PATTERN":
+    case "SINGLETON":
         SingletonPatternTest();
         break;
     case "DECORATORPATTERN":
     case "DECORATOR PATTERN":
+    case "DECORATOR":
         DecoratorPatternTest();
         break;
     case "FACADEPATTERN":
     case "FACADE PATTERN":
+    case "FACADE":
         FacadePatternTest();
         break;
     case "COMPOSITEPATTERN":
     case "COMPOSITE PATTERN":
+    case "COMPOSITE":
         CompositePatternTest();
         break;
     case "BRIDGEPATTERN":
     case "BRIDGE PATTERN":
+    case "BRIDGE":
         BridgePatternTest();
         break;
     case "COMMANDPATTERN":
     case "COMMAND PATTERN":
+    case "COMMAND":
         CommandPatternTest();
+        break;
+    case "ITERATORPATTERN":
+    case "ITERATOR PATTERN":
+    case "ITERATOR":
+        IteratorPatternTest();
         break;
     case null:
     default:
@@ -374,6 +392,54 @@ void CommandPatternTest()
     
     var commandSender = new CommandSender(command);
     commandSender.ExecuteCommand();
+}
+
+void IteratorPatternTest()
+{
+    var bicycleOrders = new BicycleOrderCollection();
+    var dealership = new Customer
+    {
+        FirstName = "John",
+        LastName = "Galt",
+        CompanyName = "Atlas Cycling",
+        EmailAddress = new MailAddress("johngalt@whois.com"),
+        ShippingAddress = "123 Singleton Drive",
+        ShippingCity = "Dallas",
+        ShippingState = "Tx",
+        ShippingZipCode = "75248"
+    };
+
+    var amarilloPeacockPaintjob = new AmarilloPeacockPaintJob();
+    var bicycle0 = new PaintableMountainBicycle(amarilloPeacockPaintjob);
+
+    var order0 = new BicycleOrder(dealership, bicycle0);
+    //bicycleOrders.Orders.Add(order0);
+    bicycleOrders.AddOrder(order0);
+
+    var turquoisePaintJob = new BluePaintJob();
+    var bicycle1 = new PaintableCruiserBicycle(turquoisePaintJob);
+    var order1 = new BicycleOrder(dealership, bicycle1);
+    bicycleOrders.AddOrder(order1);
+
+    var whitePaintJob = new WhitePaintJob();
+    var bicycle2 = new PaintableRoadBicycle(whitePaintJob);
+    var order2 = new BicycleOrder(dealership, bicycle2);
+    bicycleOrders.AddOrder(order2);
+
+    var bicycle3 = new PaintableRecumbentBicycle(amarilloPeacockPaintjob);
+    var order3 = new BicycleOrder(dealership, bicycle3);
+    bicycleOrders.AddOrder(order3);
+
+    var redPaintJob = new RedPaintJob();
+    var bicycle4 = new PaintableRoadBicycle(redPaintJob);
+    var order4 = new BicycleOrder(dealership, bicycle4);
+    bicycleOrders.AddOrder(order4);
+
+    // to iterate, just use the normal syntax you use for generic iterators
+    foreach (BicycleOrder order in bicycleOrders)
+    {
+        Console.WriteLine(order.Bicycle.PaintJob.Name);
+    }
 }
 
 #endregion Behavioral Patterns

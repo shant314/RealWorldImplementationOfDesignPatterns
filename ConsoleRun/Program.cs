@@ -15,6 +15,7 @@ using ObjectPoolPattern;
 using ObserverPattern;
 using SimpleFactoryPattern;
 using SingletonPattern;
+using StrategyPattern;
 using System.Net.Mail;
 using System.Numerics;
 
@@ -88,13 +89,16 @@ switch (Console.ReadLine()!.ToUpper())
     case "OBSERVER":
         ObserverPatternTest();
         break;
+    case "STRATEGYPATTERN":
+    case "STRATEGY PATTERN":
+    case "STRATEGY":
+        StrategyPatternTest();
+        break;
     case null:
     default:
         Console.WriteLine("Running no pattern.");
         NoPatternTest();
         break;
-
-
 }
 
 #region NoPattern
@@ -473,12 +477,28 @@ void ObserverPatternTest()
         pickupOrder.Add(mountainBicycle);
 
         if (i % 10 == 0)
+        {
             logisticsSubject.NotifyPickupAvailable();
+            pickupOrder.Clear();
+        }
     }
 
-    pickupOrder.Clear();
+    logisticsSubject.Detach(exFedObserver);
+
 
     /*you can create other observer that will ship custom color bicycles, and instead of counting bicycles count color spacific ones.*/
+}
+
+void StrategyPatternTest()
+{
+    var context = new NavigationContext();
+    context.StartNavigation(); // the default will be used.
+
+    context.NavigationStrategy = new GravelNavigationStrategy();// replace the strategy
+    context.StartNavigation();
+
+    context.NavigationStrategy = new MountainNavigationStrategy();
+    context.StartNavigation();
 }
 
 #endregion Behavioral Patterns
@@ -500,11 +520,19 @@ coupled API calls sprinkled throughout your code.
     Composite pattern, any time you need to deal with a tree structured (group sets in a tree-like structure)
 this pattern allow us to user recursion over sub elements.
 
-    Bridge pattern
+    Bridge pattern,
 The main objective of the Bridge pattern is to allow two complex object structures to be developed and 
 maintained independently of one another. 
 
-    Command pattern
-You can use the Command pattern any time you have logic to perform an action and you want to 
+    Command pattern,
+you can use the Command pattern any time you have logic to perform an action and you want to 
 isolate it from tightly coupling to anything that may want to call that logic.
+
+    Iterator pattern, 
+use this pattern any time you need to 
+process any kind of collection in a manner other than the standard FIFO processing order.
+
+    Strategy pattern,
+is used when you need to be able to choose from a set of related algorithms all 
+aimed at a common objective.
  */
